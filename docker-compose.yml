@@ -1,0 +1,54 @@
+services:
+  mysql:
+    container_name: microservices_mysql_db
+    image: mysql:8.0
+    environment:
+      USER: adagedo 
+      PASSWORD: adagedo@#$%1234
+      DATABASE: e-commerce_db
+      DATA: c:\Program Files\MySQL\MySQL Workbench 8.0\data
+    volumes:
+      - mysql: c:\Program Files\MySQL\MySQL Workbench 8.0\data
+    ports:
+      - 3306:3306
+    networks:
+      - microservices-networks
+    restart: unless-stopped
+  mongo: 
+    container_name: microservices_mongo_db
+    image: mongo
+    ports:
+      -27017:27017
+    volumes:
+      - c:\Program Files\mongo\data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME = adagedo
+      - MONGO_INITDB_ROOT_PASSWORD = adagedoDB
+  
+  mongo-express:
+    container_name: microservices_mongo_express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=adagedo
+      - MONGODB_CONFIG_ADMINPASSWORD=adagedo
+      - MONGODB_CONFIG_SERVER=mongodb
+  
+  mail-dev:
+    container_name: microservices_mail_dev
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+  
+
+networks:
+  microservices-networks:
+    driver: bridge
+
+
+volumes:
+  mysql:
+  mongo:
