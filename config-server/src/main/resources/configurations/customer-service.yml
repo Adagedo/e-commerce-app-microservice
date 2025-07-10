@@ -1,11 +1,13 @@
 spring:
-  data:
-    mongodb:
-      username: adagedo
-      password: adagedoDB
-      host: localhost
-      port: 27017
-      database: customer
-      authentication-database: admin
+  datasource:
+    url: jdbc:mysql://localhost:3306/customerdb
+    username: root
+    password: adagedo@#$%1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
 server:
   port: 5000
